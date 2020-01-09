@@ -454,7 +454,9 @@ func cleanOld(state *client.GooGetState, pi goolib.PackageInfo, insFiles map[str
 	if st.UnpackDir != "" && oswrap.RemoveAll(st.UnpackDir) != nil {
 		logger.Error(err)
 	}
-	state.Remove(pi)
+	if err := state.Remove(pi); err != nil {
+		logger.Error(err)
+	}
 	return
 }
 
